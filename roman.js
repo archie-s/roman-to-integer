@@ -19,6 +19,12 @@ function romanToInt(roman) {
     return "Invalid input: invalid repetition of symbols (VV, LL, DD)";
   }
 
+  // Ensure ordering/structure complies with standard Roman numeral rules
+  const validRomanPattern = /^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/;
+  if (!validRomanPattern.test(roman)) {
+    return "Invalid input: malformed Roman numeral";
+  }
+
   // Conversion logic
   let total = 0, prev = 0;
   for (let i = roman.length - 1; i >= 0; i--) {
@@ -42,6 +48,7 @@ function runTests() {
     { input: "Z", expected: "Invalid input: 'Z' is not a Roman numeral" },
     { input: "XIZ", expected: "Invalid input: 'Z' is not a Roman numeral" },
     { input: "VV", expected: "Invalid input: invalid repetition of symbols (VV, LL, DD)" },
+    { input: "IIX", expected: "Invalid input: malformed Roman numeral" },
     { input: "", expected: "Invalid input: empty value" }
   ];
 
